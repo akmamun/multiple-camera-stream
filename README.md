@@ -1,4 +1,4 @@
-## Live Streaming and Face Detection with Flask
+## Live Streaming with Flask and Open-CV
 ```python
 pip install requirements.txt
 ```
