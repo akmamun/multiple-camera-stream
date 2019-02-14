@@ -33,13 +33,7 @@ cv2.imencode('.jpg', frame)[1].tobytes()
 net , buffer = cv2.imencode('.jpg', frame)
 buffer.tobytes()              
 ```   
-#### Display the resulting frame in window
-##### Instead of return use this in [camera.py](/camera.py)
-```python
-cv2.imshow('frame', frame)
-if cv2.waitKey(1) & 0xFF == ord('q'):
-       break            
-``` 
+
  ## Credit
  Learn More about Streaming with flask
  - https://blog.miguelgrinberg.com/post/video-streaming-with-flask
