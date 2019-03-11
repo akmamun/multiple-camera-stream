@@ -4,7 +4,7 @@ pip install -r requirements.txt
 ```
 ### Run Server
 ```sh
-sh app.py
+app.py
 ```
 #### Use Built-in Webcam of Laptop
 ##### Put Zero (O) in cv2.VideoCapture(0)
