@@ -3,34 +3,44 @@ import cv2
 
 app = Flask(__name__)
 
-camera = cv2.VideoCapture(0)  # use 0 for web camera
+def find_camera(id):
+    cameras = ['rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp',
+    'rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp']
+    return cameras[int(id)]
 #  for cctv camera use rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp' instead of camera
+#  for webcam use zero(0)
+ 
 
-def gen_frames():  # generate frame by frame from camera
+def gen_frames(camera_id):
+     
+    cam = find_camera(camera_id)
+    cap=  cv2.VideoCapture(cam)
+    
     while True:
-        # Capture frame-by-frame
-        success, frame = camera.read()  # read the camera frame
+        # for cap in caps:
+        # # Capture frame-by-frame
+        success, frame = cap.read()  # read the camera frame
         if not success:
             break
         else:
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
 
-@app.route('/video_feed')
-def video_feed():
+@app.route('/video_feed/<string:id>/', methods=["GET"])
+def video_feed(id):
+   
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen_frames(),
+    return Response(gen_frames(id),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/')
+@app.route('/', methods=["GET"])
 def index():
-    """Video streaming home page."""
     return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run()

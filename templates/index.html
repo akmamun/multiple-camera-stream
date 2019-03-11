@@ -9,15 +9,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Live Streaming Demonstration</title>
+    <title>Multiple Live Streaming</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-lg-8  offset-lg-2">
-            <h3 class="mt-5">Live Streaming</h3>
-            <img src="{{ url_for('video_feed') }}" width="100%">
+
+        <div class="col-lg-7">
+            <h3 class="mt-5">Multiple Live Streaming</h3>
+            <img src="{{ url_for('video_feed', id='0') }}" width="100%">
         </div>
+
+
     </div>
 </div>
 </body>
